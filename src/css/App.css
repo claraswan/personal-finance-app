@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth; }
+
+body {
+  background-color: #1D2041;
+  box-sizing: border-box; }
+
+.box {
+  background-color: #2C325C;
+  color: white; }

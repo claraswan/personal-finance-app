@@ -15,6 +15,7 @@ export default function Bill( { bill, toggleBill, deleteBill } ) {
         <label>
             <input type="checkbox" checked={bill.paid} onChange={handleToggle}/>
             {bill.name}
+            {bill.amount}
             <button onClick={handleDelete}>X</button>
         </label>
     </div>
