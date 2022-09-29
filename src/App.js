@@ -59,16 +59,30 @@ function App() {
 
   return (
     <>
-      <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
-      <input ref={billNameRef} type="text" placeholder='Name of bill'/>
-      <input ref={billAmountRef} type="text" placeholder='Amount'/>
-      <button onClick={handleAddBill}>Add bill</button>
-      <button onClick={clearPaidBills}>Clear paid bills</button>
-      <div>{bills.filter(bill => !bill.paid).length} bills left to pay</div>
-      <div>
-        ${bills.filter(bill => !bill.paid)
-        .forEach(bill => billAmount += Number(bill.amount))} 
-        {billAmount} left to pay
+      <div className="header box">
+        <h1>Welcome back, Clara</h1>
+      </div>
+      <div className="box">
+        <h2 className="box__title">Your Bills</h2>
+        <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
+        <input ref={billNameRef} type="text" placeholder='Name of bill'/>
+        <input ref={billAmountRef} type="text" placeholder='Amount'/>
+        <button onClick={handleAddBill}>Add bill</button>
+        <button onClick={clearPaidBills}>Clear paid bills</button>
+        <div>{bills.filter(bill => !bill.paid).length} bills left to pay</div>
+        <div>
+          ${bills.filter(bill => !bill.paid)
+          .forEach(bill => billAmount += Number(bill.amount))} 
+          {billAmount} left to pay
+        </div>
+      </div>
+      <div className="box">
+        <h2 className="box__title">Spending Journal</h2>
+        
+      </div>
+      <div className="box">
+        <h2 className="box__title">Financial Goals</h2>
+        
       </div>
     </>
   );
