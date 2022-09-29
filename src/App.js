@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BillsList from './BillsList';
+import GoalsList from './GoalsList';
 import { v4 as uuidv4 } from 'uuid';
 import './css/App.css';
 
@@ -7,9 +8,12 @@ const LOCAL_STORAGE_KEY = 'financeApp.bills';
 
 function App() {
 
-  const [bills, setBills] = useState([]);
+  const [bills, setBills] = useState([]); // in react you can never directly modify state. The state 'bills' can ONLY be modified using its setter function.
   const billNameRef = useRef();
   const billAmountRef = useRef();
+  const [goals, setGoals] = useState([]); 
+  const goalNameRef = useRef();
+  const goalDescRef = useRef();
 
   useEffect(() => {
     const storedBills = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -35,12 +39,29 @@ function App() {
   function handleAddBill(e) {
     const name = billNameRef.current.value;
     const amount = billAmountRef.current.value;
+    const key = e.key;
     if (name === '' || amount === '') return;
-    setBills(prevBills => {
-      return [...prevBills, { id: uuidv4(), name: name, amount: amount, paid: false }]
-    })
-    billNameRef.current.value = null;
-    billAmountRef.current.value = null;
+    if (key === 'Enter') {
+      setBills(prevBills => {
+        return [...prevBills, { id: uuidv4(), name: name, amount: amount, paid: false }]
+      })
+      billNameRef.current.value = null;
+      billAmountRef.current.value = null;
+    }
+  }
+
+  function handleAddGoal(e) {
+    const name = goalNameRef.current.value;
+    const description = goalDescRef.current.value;
+    const key = e.key;
+    if (name === '' || description === '') return;
+    if (key === 'Enter') {
+      setGoals(prevGoals => {
+        return [...prevGoals, { id: uuidv4(), name: name, description: description }]
+      })
+      goalNameRef.current.value = null;
+      goalDescRef.current.value = null;
+    }
   }
 
   function deleteBill(id) {
@@ -62,27 +83,40 @@ function App() {
       <div className="header box">
         <h1>Welcome back, Clara</h1>
       </div>
+
       <div className="box">
         <h2 className="box__title">Your Bills</h2>
+        
+        <div className='search'>
+          <input ref={billNameRef} type="text" placeholder='Name of bill'/>
+          <input ref={billAmountRef} type="text" placeholder='Amount' onKeyUp={(e) => handleAddBill(e)} />
+        </div>
+      
         <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
-        <input ref={billNameRef} type="text" placeholder='Name of bill'/>
-        <input ref={billAmountRef} type="text" placeholder='Amount'/>
-        <button onClick={handleAddBill}>Add bill</button>
-        <button onClick={clearPaidBills}>Clear paid bills</button>
-        <div>{bills.filter(bill => !bill.paid).length} bills left to pay</div>
+        <div>{bills.filter(bill => !bill.paid).length} unpaid bills</div>
         <div>
           ${bills.filter(bill => !bill.paid)
           .forEach(bill => billAmount += Number(bill.amount))} 
-          {billAmount} left to pay
+          {billAmount} left to pay this month
         </div>
+        <button onClick={clearPaidBills}>Clear paid bills</button>
+
       </div>
+
       <div className="box">
-        <h2 className="box__title">Spending Journal</h2>
+        <h2 className="box__title">Your Spending This Month</h2>
         
+
       </div>
+
       <div className="box">
         <h2 className="box__title">Financial Goals</h2>
         
+        <GoalsList goals={goals}/>
+        <div className='search'>
+          <input ref={goalNameRef} type="text" placeholder='Name of goal'/>
+          <input ref={goalDescRef} type="text" placeholder='Description' onKeyUp={(e) => handleAddGoal(e)} />
+        </div>
       </div>
     </>
   );

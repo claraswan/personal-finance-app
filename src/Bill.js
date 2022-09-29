@@ -11,12 +11,12 @@ export default function Bill( { bill, toggleBill, deleteBill } ) {
   }
 
   return (
-    <div>
+    <div className='bill'>
         <label>
-            <input type="checkbox" checked={bill.paid} onChange={handleToggle}/>
-            {bill.name}
-            {bill.amount}
-            <button onClick={handleDelete}>X</button>
+            <input className="checkbox" type="checkbox" checked={bill.paid} onChange={handleToggle}/>
+            <div className='bill__name'>{bill.name}</div>
+            <div className='bill__amount'>${bill.amount}</div>
+            <button className="bill__x" onClick={handleDelete}>x</button>
         </label>
     </div>
   )
