@@ -65,9 +65,15 @@ body {
   font-weight: 450;
   cursor: pointer; }
 
+.goalsList {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .goal {
   border: 0.2rem solid #414775;
   border-radius: 1rem;
   padding: 1rem;
   margin: 1rem 1rem 1rem 0;
-  width: 20%; }
+  width: 20%;
+  height: 12rem; }

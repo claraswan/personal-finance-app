@@ -4,7 +4,7 @@ import GoalsList from './GoalsList';
 import { v4 as uuidv4 } from 'uuid';
 import './css/App.css';
 
-const LOCAL_STORAGE_KEY = 'financeApp.bills';
+const LOCAL_STORAGE_KEY = 'financeApp';
 
 function App() {
 
@@ -111,8 +111,9 @@ function App() {
 
       <div className="box">
         <h2 className="box__title">Financial Goals</h2>
-        
-        <GoalsList goals={goals}/>
+        <div className='goalsList'>
+          <GoalsList goals={goals}/>
+        </div>
         <div className='search'>
           <input ref={goalNameRef} type="text" placeholder='Name of goal'/>
           <input ref={goalDescRef} type="text" placeholder='Description' onKeyUp={(e) => handleAddGoal(e)} />
