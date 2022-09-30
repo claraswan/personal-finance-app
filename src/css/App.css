@@ -37,7 +37,28 @@ body {
   .header h1 {
     font-weight: 100; }
 
+.btn {
+  background-color: #1D2041;
+  border: none;
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  color: #fff;
+  font-family: 'IBM', sans-serif;
+  cursor: pointer; }
+
+.stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8rem;
+  padding: 1.6rem; }
+  .stats__num {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #566ace; }
+
 .bill {
+  height: 4.4rem;
   border-radius: 0.8rem 0.4rem;
   margin: 0.6rem 0.6rem 0.6rem 0;
   background-color: #414775;
@@ -62,9 +83,18 @@ body {
   font-weight: 450;
   cursor: pointer; }
 
-.journal__entry--name, .journal__entry--description, .journal__entry--amount {
-  border-bottom: 1px solid #fff;
-  padding: 0.4rem 1rem 0.4rem 0; }
+.journal {
+  margin: 2rem 0; }
+  .journal__entry {
+    border-bottom: solid 1px white; }
+    .journal__entry--headers, .journal__entry--name, .journal__entry--description, .journal__entry--amount {
+      width: 10rem;
+      padding: 0.4rem 2rem 0.4rem 0; }
+    .journal__entry--headers {
+      text-align: left; }
+
+.spendingChart {
+  height: 10rem; }
 
 .goalsList {
   display: flex;
@@ -78,6 +108,14 @@ body {
   margin: 1rem 1rem 1rem 0;
   width: 20%;
   height: 12rem; }
+  .goal:hover {
+    background-color: #414775; }
+
+.addNew {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 .amount {
   width: 5%; }

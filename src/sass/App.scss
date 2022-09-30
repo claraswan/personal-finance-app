@@ -1,3 +1,4 @@
+@import "abstracts/mixins";
 @import "abstracts/variables";
 @import "base/base";
 @import "base/typography";
@@ -25,7 +26,30 @@
     }
 }
 
+.btn {
+    background-color: $primary-dark;
+    border: none;
+    padding: 1rem 1.2rem;
+    border-radius: 0.8rem;
+    color: $white;
+    font-family: 'IBM', sans-serif;
+    cursor: pointer;
+}
+
+.stats {
+    @include flex-center;
+    gap: 8rem;
+    padding: 1.6rem;
+
+    &__num {
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: $primary-blue-2;
+    }
+}
+
 .bill {
+    height: 4.4rem;
     border-radius: 0.8rem 0.4rem;
     margin: 0.6rem 0.6rem 0.6rem 0;
     background-color: $primary-light-2;
@@ -60,17 +84,30 @@
 
 .journal {
 
+    margin: 2rem 0;
+
     &__entry {
 
+        border-bottom: solid 1px white;
+
+        &--headers,
         &--name,
         &--description,
         &--amount {
-            border-bottom: 1px solid $white;
-            padding: 0.4rem 1rem 0.4rem 0;
+            width: 10rem;
+            padding: 0.4rem 2rem 0.4rem 0;
+        }
+
+        &--headers {
+            text-align: left;
         }
         
     }
     
+}
+
+.spendingChart {
+    height: 10rem;
 }
 
 .goalsList {
@@ -86,6 +123,17 @@
     margin: 1rem 1rem 1rem 0;
     width: 20%;
     height: 12rem;
+
+    &:hover {
+        background-color: $primary-light-2;
+    }
+}
+
+.addNew{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .amount {

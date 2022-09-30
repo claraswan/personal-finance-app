@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import BillsList from './BillsList';
-import GoalsList from './GoalsList';
-import Journal from './Journal';
+import BillsList from './components/BillsList';
+import GoalsList from './components/GoalsList';
+import Journal from './components/Journal';
+import SpendingChart from './components/SpendingChart';
 import { v4 as uuidv4 } from 'uuid';
+import plus from './plus.svg';
 import './css/App.css';
 
 const LOCAL_STORAGE_KEY = 'financeApp.bills';
@@ -19,6 +21,12 @@ function App() {
   const entryNameRef = useRef();
   const entryDescRef = useRef();
   const entryAmountRef = useRef();
+  const addNew = useRef();
+
+  const searchBars = document.getElementsByClassName('search');
+  for (const searchBar of searchBars) {
+    searchBar.style.opacity = 0;
+  }
 
   useEffect(() => {
     const storedBills = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -53,6 +61,22 @@ function App() {
       })
       billNameRef.current.value = null;
       billAmountRef.current.value = null;
+    }
+  }
+
+  function addNewBill() {
+    for (const searchBar of searchBars) {
+      if (searchBar.parent === addNew.parent) {
+        searchBar.style.opacity = 1;
+      }
+    }
+  }
+
+  function addNewGoal() {
+    for (const searchBar of searchBars) {
+      if (searchBar.parent === addNew.parent) {
+        searchBar.style.opacity = 1;
+      }
     }
   }
 
@@ -104,54 +128,68 @@ function App() {
 
   return (
     <>
-      <div className="header box">
+      <div className='header box'>
         <h1>Welcome back, Clara</h1>
       </div>
 
-      <div className="box">
-        <h2 className="box__title">Your Bills</h2>
-        
-        <div className="search">
-          <input className="search__input" ref={billNameRef} type="text" placeholder="Name of bill"/>
-          <input className="amount search__input" ref={billAmountRef} type="text" placeholder="Amount" onKeyUp={(e) => handleAddBill(e)} />
+      <div className='box billsBox'>
+        <h2 className='box__title'>Your Monthly Bills</h2>
+
+        <div className='stats'>
+          <div><span className='stats__num'>{bills.filter(bill => !bill.paid).length}</span> unpaid bills</div>
+          <div>$<span className='stats__num'>
+            {bills.filter(bill => !bill.paid)
+            .forEach(bill => billAmount += Number(bill.amount))} 
+            {billAmount}</span> left to pay this month
+          </div>
         </div>
       
         <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
-        <div>{bills.filter(bill => !bill.paid).length} unpaid bills</div>
-        <div>
-          ${bills.filter(bill => !bill.paid)
-          .forEach(bill => billAmount += Number(bill.amount))} 
-          {billAmount} left to pay this month
+        <div className='bill addNew' ref={addNew} onClick={addNewBill}><img src={plus} alt='plus sign icon'></img></div>
+        
+        <div className='search' ref={searchBars}>
+          <input className='search__input' ref={billNameRef} type='text' placeholder='Name of bill'/>
+          <input className='amount search__input' ref={billAmountRef} type='text' placeholder='Amount' onKeyUp={(e) => handleAddBill(e)} />
         </div>
-        <button onClick={clearPaidBills}>Clear paid bills</button>
+
+        <button className='btn' onClick={clearPaidBills}>Clear paid bills</button>
 
       </div>
 
-      <div className="box">
-        <h2 className="box__title">Your Spending This Month</h2>
+      <div className='box journalBox'>
+        <h2 className='box__title'>Your Spending This Month</h2>
         <Journal entries={entries}/>
+        <SpendingChart className="spendingChart"/>
     
-        <div className="search">
-          <input className="search__input" ref={entryNameRef} type="text" placeholder="Title"/>
-          <input className="search__input" ref={entryDescRef} type="text" placeholder="Description" />
-          <input className="amount search__input" ref={entryAmountRef} type="text" placeholder="Amount" onKeyUp={(e) => handleAddEntry(e)} />
+        <div className='search' ref={searchBars}>
+          <input className='search__input' ref={entryNameRef} type='text' placeholder='Title'/>
+          <select className='search__input' ref={entryDescRef} name='types'>
+            <option value='food'>Food</option>
+            <option value='entertainment'>Entertainment</option>
+            <option value='clothing'>Clothing</option>
+            <option value='healthcare'>Healthcare</option>
+            <option value='rent'>Rent</option>
+            <option value='pet'>Pet cost</option>
+          </select>
+          <input className='amount search__input' ref={entryAmountRef} type='text' placeholder='Amount' onKeyUp={(e) => handleAddEntry(e)} />
         </div>
 
       </div>
 
-      <div className="box">
-        <h2 className="box__title">Financial Goals</h2>
-        <div className="goalsList">
+      <div className='box goalsBox'>
+        <h2 className='box__title'>Financial Goals</h2>
+        <div className='goalsList'>
           <GoalsList goals={goals}/>
+          <div className='goal addNew' onClick={addNewGoal}><img src={plus} alt='plus sign icon'></img></div>
         </div>
-        <div className="search">
-          <input className="search__input" ref={goalNameRef} type="text" placeholder="Name of goal"/>
-          <input className="search__input" ref={goalDescRef} type="text" placeholder="Description" onKeyUp={(e) => handleAddGoal(e)} />
+        <div className='search' ref={searchBars}>
+          <input className='search__input' ref={goalNameRef} type='text' placeholder='Name of goal'/>
+          <input className='search__input' ref={goalDescRef} type='text' placeholder='Description' onKeyUp={(e) => handleAddGoal(e)} />
         </div>
       </div>
 
-      <div className="box">
-        <h2 className="box__title">Assets</h2>
+      <div className='box assetsBox'>
+        <h2 className='box__title'>Assets</h2>
         
         
 

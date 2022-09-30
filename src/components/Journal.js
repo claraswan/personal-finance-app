@@ -5,7 +5,7 @@ export default function Journal( { entries } ) {
   return (
     <table className="journal">
       <thead>
-          <tr className='journal__entry'>
+          <tr className='journal__entry--headers'>
             <th>Title</th>
             <th>Description</th>
             <th>Amount</th>
