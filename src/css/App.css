@@ -33,7 +33,7 @@ body {
   padding: 2rem;
   font-size: 1.8rem;
   text-align: center;
-  letter-spacing: 0.6rem; }
+  letter-spacing: 0.4rem; }
   .header h1 {
     font-weight: 100; }
 
@@ -46,15 +46,12 @@ body {
     display: inline-block;
     margin: 1rem; }
 
-.search > * {
+.search__input {
   padding: 0.6rem;
   margin: 0 1rem 1.2rem 0;
   border-radius: 0.6rem;
   border: none;
   opacity: 0.6; }
-
-.search:active {
-  border: none; }
 
 .bill__x {
   background-color: #414775;
@@ -64,6 +61,10 @@ body {
   font-size: 1.7rem;
   font-weight: 450;
   cursor: pointer; }
+
+.journal__entry--name, .journal__entry--description, .journal__entry--amount {
+  border-bottom: 1px solid #fff;
+  padding: 0.4rem 1rem 0.4rem 0; }
 
 .goalsList {
   display: flex;
@@ -77,3 +78,6 @@ body {
   margin: 1rem 1rem 1rem 0;
   width: 20%;
   height: 12rem; }
+
+.amount {
+  width: 5%; }

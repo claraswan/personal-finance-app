@@ -1,19 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BillsList from './BillsList';
 import GoalsList from './GoalsList';
+import Journal from './Journal';
 import { v4 as uuidv4 } from 'uuid';
 import './css/App.css';
 
-const LOCAL_STORAGE_KEY = 'financeApp';
+const LOCAL_STORAGE_KEY = 'financeApp.bills';
 
 function App() {
 
   const [bills, setBills] = useState([]); // in react you can never directly modify state. The state 'bills' can ONLY be modified using its setter function.
+  const [goals, setGoals] = useState([]); 
+  const [entries, setEntries] = useState([]); 
   const billNameRef = useRef();
   const billAmountRef = useRef();
-  const [goals, setGoals] = useState([]); 
   const goalNameRef = useRef();
   const goalDescRef = useRef();
+  const entryNameRef = useRef();
+  const entryDescRef = useRef();
+  const entryAmountRef = useRef();
 
   useEffect(() => {
     const storedBills = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -37,6 +42,7 @@ function App() {
   }
 
   function handleAddBill(e) {
+    e.preventDefault();
     const name = billNameRef.current.value;
     const amount = billAmountRef.current.value;
     const key = e.key;
@@ -51,6 +57,7 @@ function App() {
   }
 
   function handleAddGoal(e) {
+    e.preventDefault();
     const name = goalNameRef.current.value;
     const description = goalDescRef.current.value;
     const key = e.key;
@@ -61,6 +68,23 @@ function App() {
       })
       goalNameRef.current.value = null;
       goalDescRef.current.value = null;
+    }
+  }
+
+  function handleAddEntry(e) {
+    e.preventDefault();
+    const name = entryNameRef.current.value;
+    const description = entryDescRef.current.value;
+    const amount = entryAmountRef.current.value;
+    const key = e.key;
+    if (name === '' || description === '' || amount === '') return;
+    if (key === 'Enter') {
+      setEntries(prevEntries => {
+        return [...prevEntries, { id: uuidv4(), name: name, description: description, amount: amount }]
+      })
+      entryNameRef.current.value = null;
+      entryDescRef.current.value = null;
+      entryAmountRef.current.value = null;
     }
   }
 
@@ -87,9 +111,9 @@ function App() {
       <div className="box">
         <h2 className="box__title">Your Bills</h2>
         
-        <div className='search'>
-          <input ref={billNameRef} type="text" placeholder='Name of bill'/>
-          <input ref={billAmountRef} type="text" placeholder='Amount' onKeyUp={(e) => handleAddBill(e)} />
+        <div className="search">
+          <input className="search__input" ref={billNameRef} type="text" placeholder="Name of bill"/>
+          <input className="amount search__input" ref={billAmountRef} type="text" placeholder="Amount" onKeyUp={(e) => handleAddBill(e)} />
         </div>
       
         <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
@@ -105,20 +129,34 @@ function App() {
 
       <div className="box">
         <h2 className="box__title">Your Spending This Month</h2>
-        
+        <Journal entries={entries}/>
+    
+        <div className="search">
+          <input className="search__input" ref={entryNameRef} type="text" placeholder="Title"/>
+          <input className="search__input" ref={entryDescRef} type="text" placeholder="Description" />
+          <input className="amount search__input" ref={entryAmountRef} type="text" placeholder="Amount" onKeyUp={(e) => handleAddEntry(e)} />
+        </div>
 
       </div>
 
       <div className="box">
         <h2 className="box__title">Financial Goals</h2>
-        <div className='goalsList'>
+        <div className="goalsList">
           <GoalsList goals={goals}/>
         </div>
-        <div className='search'>
-          <input ref={goalNameRef} type="text" placeholder='Name of goal'/>
-          <input ref={goalDescRef} type="text" placeholder='Description' onKeyUp={(e) => handleAddGoal(e)} />
+        <div className="search">
+          <input className="search__input" ref={goalNameRef} type="text" placeholder="Name of goal"/>
+          <input className="search__input" ref={goalDescRef} type="text" placeholder="Description" onKeyUp={(e) => handleAddGoal(e)} />
         </div>
       </div>
+
+      <div className="box">
+        <h2 className="box__title">Assets</h2>
+        
+        
+
+      </div>
+
     </>
   );
 

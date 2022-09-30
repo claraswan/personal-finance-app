@@ -19,7 +19,7 @@
     padding: 2rem;
     font-size: 1.8rem;
     text-align: center;
-    letter-spacing: 0.6rem;
+    letter-spacing: 0.4rem;
     h1 {
         font-weight: 100;
     }
@@ -39,16 +39,12 @@
 
 .search {
 
-    &>* {
+    &__input {
         padding: 0.6rem;
         margin: 0 1rem 1.2rem 0;
         border-radius: 0.6rem;
         border: none;
         opacity: 0.6;
-    }
-
-    &:active {
-        border: none;
     }
 }
 
@@ -60,6 +56,21 @@
     font-size: 1.7rem;
     font-weight: 450;
     cursor: pointer;
+}
+
+.journal {
+
+    &__entry {
+
+        &--name,
+        &--description,
+        &--amount {
+            border-bottom: 1px solid $white;
+            padding: 0.4rem 1rem 0.4rem 0;
+        }
+        
+    }
+    
 }
 
 .goalsList {
@@ -75,4 +86,8 @@
     margin: 1rem 1rem 1rem 0;
     width: 20%;
     height: 12rem;
+}
+
+.amount {
+    width: 5%;
 }
