@@ -1,5 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
+import Journal from './Journal';
+
+console.log('journal amounts: ', Journal)
 
 const data = [
   { name: 'Food', value: 400 },

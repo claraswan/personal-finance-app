@@ -96,13 +96,17 @@ function App() {
   }
 
   function handleAddEntry(e) {
+
     e.preventDefault();
     const name = entryNameRef.current.value;
     const description = entryDescRef.current.value;
     const amount = entryAmountRef.current.value;
     const key = e.key;
+
     if (name === '' || description === '' || amount === '') return;
+
     if (key === 'Enter') {
+
       setEntries(prevEntries => {
         return [...prevEntries, { id: uuidv4(), name: name, description: description, amount: amount }]
       })
@@ -170,6 +174,7 @@ function App() {
             <option value='healthcare'>Healthcare</option>
             <option value='rent'>Rent</option>
             <option value='pet'>Pet cost</option>
+            <option value='other'>Other</option>
           </select>
           <input className='amount search__input' ref={entryAmountRef} type='text' placeholder='Amount' onKeyUp={(e) => handleAddEntry(e)} />
         </div>
