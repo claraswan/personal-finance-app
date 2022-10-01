@@ -1,16 +1,17 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
-import Journal from './Journal';
+import Journal, { amounts } from './Journal';
 
-console.log('journal amounts: ', Journal)
+console.log('journal amounts: ', amounts);
 
 const data = [
-  { name: 'Food', value: 400 },
-  { name: 'Entertainment', value: 300 },
-  { name: 'Clothing', value: 300 },
-  { name: 'Healthcare', value: 200 },
-  { name: 'Rent', value: 700 },
-  { name: 'Pet Cost', value: 100 },
+  { name: 'Food', value: amounts.foodAmount },
+  { name: 'Entertainment', value: amounts.entertainmentAmount },
+  { name: 'Clothing', value: amounts.clothingAmount },
+  { name: 'Healthcare', value: amounts.healthcareAmount },
+  { name: 'Rent', value: amounts.rentAmount },
+  { name: 'Pet Cost', value: amounts.petCostsAmount },
+  { name: 'Other', value: amounts.otherAmount },
 ];
 
 const RADIAN = Math.PI / 180;

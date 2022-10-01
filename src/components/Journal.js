@@ -1,22 +1,25 @@
 import React, { useEffect }  from 'react';
 import Entry from './Entry';
 
-export default function Journal( { entries } ) {
+let foodAmount = 0;
+let entertainmentAmount = 0;
+let clothingAmount = 0;
+let healthcareAmount = 0;
+let rentAmount = 0;
+let petCostsAmount = 0;
+let otherAmount = 0;
 
-  let foodAmount = 0;
-  let entertainmentAmount = 0;
-  let clothingAmount = 0;
-  let healthcareAmount = 0;
-  let rentAmount = 0;
-  let petCostsAmount = 0;
-  let otherAmount = 0;
-  const amounts = [foodAmount, 
-    entertainmentAmount, 
-    clothingAmount, 
-    healthcareAmount,
-    rentAmount,
-    petCostsAmount,
-    otherAmount]
+const amounts = {
+  foodAmount: foodAmount, 
+  entertainmentAmount: entertainmentAmount, 
+  clothingAmount: clothingAmount, 
+  healthcareAmount: healthcareAmount,
+  rentAmount: rentAmount,
+  petCostsAmount: petCostsAmount,
+  otherAmount: otherAmount
+};
+
+export default function Journal( { entries } ) {
 
   useEffect(() => {
 
@@ -39,10 +42,10 @@ export default function Journal( { entries } ) {
         }
       }
     }
-  }, [entries])
+    
+  }, [entries]);
 
   return (
-    {amounts},
 
     <table className="journal">
       <thead>
@@ -60,3 +63,5 @@ export default function Journal( { entries } ) {
     </table>
   )
 }
+
+export {amounts};
