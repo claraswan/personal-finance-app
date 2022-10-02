@@ -50,17 +50,59 @@ function App() {
   }
 
   function handleAddBill(e) {
+    
     e.preventDefault();
     const name = billNameRef.current.value;
     const amount = billAmountRef.current.value;
-    const key = e.key;
+
     if (name === '' || amount === '') return;
-    if (key === 'Enter') {
+
+    if (e.key === 'Enter') {
       setBills(prevBills => {
         return [...prevBills, { id: uuidv4(), name: name, amount: amount, paid: false }]
       })
       billNameRef.current.value = null;
       billAmountRef.current.value = null;
+    }
+
+  }
+
+  function handleAddGoal(e) {
+
+    console.log('handleAddGoal');
+    e.preventDefault();
+    const name = goalNameRef.current.value;
+    const description = goalDescRef.current.value;
+
+    if (name === '' || description === '') return;
+
+    if (e.key === 'Enter') {
+      setGoals(prevGoals => {
+        return [...prevGoals, { id: uuidv4(), name: name, description: description }]
+      })
+      goalNameRef.current.value = null;
+      goalDescRef.current.value = null;
+    }
+
+  }
+
+  function handleAddEntry(e) {
+
+    e.preventDefault();
+    const name = entryNameRef.current.value;
+    const description = entryDescRef.current.value;
+    const amount = entryAmountRef.current.value;
+
+    if (name === '' || description === '' || amount === '') return;
+
+    if (e.key === 'Enter') {
+
+      setEntries(prevEntries => {
+        return [...prevEntries, { id: uuidv4(), name: name, description: description, amount: amount }]
+      })
+      entryNameRef.current.value = null;
+      entryDescRef.current.value = null;
+      entryAmountRef.current.value = null;
     }
   }
 
@@ -77,42 +119,6 @@ function App() {
       if (searchBar.parent === addNew.parent) {
         searchBar.style.opacity = 1;
       }
-    }
-  }
-
-  function handleAddGoal(e) {
-    e.preventDefault();
-    const name = goalNameRef.current.value;
-    const description = goalDescRef.current.value;
-    const key = e.key;
-    if (name === '' || description === '') return;
-    if (key === 'Enter') {
-      setGoals(prevGoals => {
-        return [...prevGoals, { id: uuidv4(), name: name, description: description }]
-      })
-      goalNameRef.current.value = null;
-      goalDescRef.current.value = null;
-    }
-  }
-
-  function handleAddEntry(e) {
-
-    e.preventDefault();
-    const name = entryNameRef.current.value;
-    const description = entryDescRef.current.value;
-    const amount = entryAmountRef.current.value;
-    const key = e.key;
-
-    if (name === '' || description === '' || amount === '') return;
-
-    if (key === 'Enter') {
-
-      setEntries(prevEntries => {
-        return [...prevEntries, { id: uuidv4(), name: name, description: description, amount: amount }]
-      })
-      entryNameRef.current.value = null;
-      entryDescRef.current.value = null;
-      entryAmountRef.current.value = null;
     }
   }
 
@@ -133,7 +139,7 @@ function App() {
   return (
     <>
       <div className='header box'>
-        <h1>Welcome back, Clara</h1>
+        <h1>Dashboard</h1>
       </div>
 
       <div className='box billsBox'>
@@ -188,7 +194,7 @@ function App() {
           <div className='goal addNew' onClick={addNewGoal}><img src={plus} alt='plus sign icon'></img></div>
         </div>
         <div className='search' ref={searchBars}>
-          <input className='search__input' ref={goalNameRef} type='text' placeholder='Name of goal'/>
+          <input className='search__input' ref={goalNameRef} type='text' placeholder='Name of goal' />
           <input className='search__input' ref={goalDescRef} type='text' placeholder='Description' onKeyUp={(e) => handleAddGoal(e)} />
         </div>
       </div>

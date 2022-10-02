@@ -1,4 +1,4 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import Entry from './Entry';
 
 let foodAmount = 0;
@@ -21,12 +21,16 @@ const amounts = {
 
 export default function Journal( { entries } ) {
 
+  const [foodAmount, setfoodAmount] = useState([]); 
+
   useEffect(() => {
 
     if (entries.length !== 0) {
+
       for (let entry of entries) {
+
         if (entry.description === 'food') {
-          foodAmount += Number(entry.amount);
+          setfoodAmount((prevAmount) => prevAmount += Number(entry.amount));
         } else if (entry.description === 'entertainment') {
           entertainmentAmount += Number(entry.amount);
         } else if (entry.description === 'clothing') {
@@ -40,7 +44,9 @@ export default function Journal( { entries } ) {
         } else if (entry.description === 'other') {
           otherAmount += Number(entry.amount);
         }
+
       }
+
     }
     
   }, [entries]);

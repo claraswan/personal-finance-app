@@ -2,39 +2,12 @@
 @import "abstracts/variables";
 @import "base/base";
 @import "base/typography";
+@import "components/box";
+@import "components/button";
+@import "components/progress-bar";
+@import "components/spending-chart";
+@import "layout/header";
 
-
-.box {
-    background-color: $primary-light;
-    margin: 1rem;
-    border-radius: 1rem;
-    padding: 2rem;
-
-    &__title {
-        margin-bottom: 1.2rem;
-        text-align: center;
-    }
-}
-
-.header {
-    padding: 2rem;
-    font-size: 1.8rem;
-    text-align: center;
-    letter-spacing: 0.4rem;
-    h1 {
-        font-weight: 100;
-    }
-}
-
-.btn {
-    background-color: $primary-dark;
-    border: none;
-    padding: 1rem 1.2rem;
-    border-radius: 0.8rem;
-    color: $white;
-    font-family: 'IBM', sans-serif;
-    cursor: pointer;
-}
 
 .stats {
     @include flex-center;
@@ -44,7 +17,7 @@
     &__num {
         font-weight: 700;
         font-size: 1.6rem;
-        color: $primary-blue-2;
+        color: $blue-light;
     }
 }
 
@@ -104,10 +77,6 @@
         
     }
     
-}
-
-.spendingChart {
-    height: 10rem;
 }
 
 .goalsList {

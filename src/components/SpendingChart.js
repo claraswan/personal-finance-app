@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import Journal, { amounts } from './Journal';
 
-console.log('journal amounts: ', amounts);
+console.log('journal amounts: ', Journal);
 
 const data = [
-  { name: 'Food', value: amounts.foodAmount },
+  { name: 'Food', value: 0 },
   { name: 'Entertainment', value: amounts.entertainmentAmount },
   { name: 'Clothing', value: amounts.clothingAmount },
   { name: 'Healthcare', value: amounts.healthcareAmount },
@@ -15,7 +15,7 @@ const data = [
 ];
 
 const RADIAN = Math.PI / 180;
-const COLORS = ['#465BCA', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#465BCA', '#FF5497', '#FFA05D', '#9D3171'];
 
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
@@ -30,6 +30,11 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   };
 
 export default function SpendingChart() {
+
+  useEffect(() => {
+    console.log('journal changed');
+  }, [Journal]);
+
   return (
         <PieChart width={400} height={400}>
           <Pie
