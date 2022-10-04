@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BillsList from './components/BillsList';
 import GoalsList from './components/GoalsList';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Journal from './components/Journal';
 import SpendingChart from './components/SpendingChart';
 import { v4 as uuidv4 } from 'uuid';
@@ -138,9 +140,7 @@ function App() {
 
   return (
     <>
-      <div className='header box'>
-        <h1>Dashboard</h1>
-      </div>
+      <Header />
 
       <div className='box billsBox'>
         <h2 className='box__title'>Your Monthly Bills</h2>
@@ -205,6 +205,8 @@ function App() {
         
 
       </div>
+
+      <Footer />
 
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import Journal, { amounts } from './Journal';
 
@@ -31,9 +31,9 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 export default function SpendingChart() {
 
-  useEffect(() => {
-    console.log('journal changed');
-  }, [Journal]);
+  // useEffect(() => {
+  //   console.log('journal changed');
+  // }, [Journal]);
 
   return (
         <PieChart width={400} height={400}>
