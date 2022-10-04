@@ -13,12 +13,42 @@ body {
 
 @font-face {
   font-family: "IBM";
-  src: url(../IBMPlexSans-Regular.ttf); }
+  src: url(../IBMPlexSans-Regular.ttf);
+  src: url(../IBMPlexSans-ExtraLight.ttf); }
 
 body {
   color: #fff;
   font-family: 'IBM', sans-serif;
-  font-size: 1.4rem; }
+  font-size: 1.6rem; }
+
+.bill {
+  height: 4.4rem;
+  border-radius: 0.8rem 0.2rem;
+  margin: 0.6rem 0.6rem 0.6rem 0;
+  background-color: #414775;
+  padding: 0.2rem 0.8rem;
+  cursor: pointer; }
+  .bill__name, .bill__amount {
+    display: inline-block;
+    margin: 1rem; }
+  .bill:hover {
+    background-color: #1D2041; }
+  .bill__x {
+    background-color: none;
+    border: none;
+    padding: 0.2rem;
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .1s; }
+    .bill__x:hover {
+      transform: scale(1.1); }
+
+.done > * {
+  text-decoration: line-through;
+  opacity: 0.4; }
 
 .box {
   background-color: #2C325C;
@@ -28,15 +58,22 @@ body {
   .box__title {
     margin-bottom: 1.2rem;
     text-align: center; }
+  .box__content {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
 
 .btn {
   background-color: #1D2041;
   border: none;
   padding: 1rem 1.2rem;
-  border-radius: 0.8rem;
+  border-radius: 0.8rem 0.2rem;
   color: #fff;
   font-family: 'IBM', sans-serif;
-  cursor: pointer; }
+  cursor: pointer;
+  transition: all .4s; }
+  .btn:hover {
+    transform: scale(1.1); }
 
 .progress-bar {
   height: 2rem;
@@ -53,13 +90,13 @@ body {
     max-width: 100%; }
 
 .spendingChart {
-  height: 10rem; }
+  height: 20rem; }
 
 .header {
   padding: 2rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
   text-align: center;
-  letter-spacing: 0.4rem; }
+  letter-spacing: 0.3rem; }
   .header h1 {
     font-weight: 100; }
 
@@ -74,16 +111,6 @@ body {
     font-size: 1.6rem;
     color: #566ace; }
 
-.bill {
-  height: 4.4rem;
-  border-radius: 0.8rem 0.4rem;
-  margin: 0.6rem 0.6rem 0.6rem 0;
-  background-color: #414775;
-  padding: 0.2rem 0.8rem; }
-  .bill__name, .bill__amount {
-    display: inline-block;
-    margin: 1rem; }
-
 .search__input {
   padding: 0.6rem;
   margin: 0 1rem 1.2rem 0;
@@ -91,24 +118,20 @@ body {
   border: none;
   opacity: 0.6; }
 
-.bill__x {
-  background-color: #414775;
-  border: none;
-  padding: 0.2rem;
-  color: #fff;
-  font-size: 1.7rem;
-  font-weight: 450;
-  cursor: pointer; }
-
 .journal {
-  margin: 2rem 0; }
+  margin: 2rem 0;
+  width: 50rem;
+  background-color: #414775;
+  padding: 2rem;
+  border-radius: 0.8rem 0.2rem; }
   .journal__entry {
     border-bottom: solid 1px white; }
     .journal__entry--headers, .journal__entry--name, .journal__entry--description, .journal__entry--amount {
       width: 10rem;
       padding: 0.4rem 2rem 0.4rem 0; }
     .journal__entry--headers {
-      text-align: left; }
+      text-align: left;
+      font-size: 2rem; }
 
 .goalsList {
   display: flex;
@@ -117,7 +140,7 @@ body {
 
 .goal {
   border: 0.2rem solid #414775;
-  border-radius: 1rem;
+  border-radius: 0.8rem 0.2rem;
   padding: 1rem;
   margin: 1rem 1rem 1rem 0;
   width: 20%;
@@ -133,3 +156,6 @@ body {
 
 .amount {
   width: 5%; }
+
+.recharts-wrapper {
+  margin-right: 0; }

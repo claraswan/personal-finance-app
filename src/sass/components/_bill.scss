@@ -1,0 +1,42 @@
+.bill {
+    height: 4.4rem;
+    border-radius: 0.8rem 0.2rem;
+    margin: 0.6rem 0.6rem 0.6rem 0;
+    background-color: $primary-light-2;
+    padding: 0.2rem 0.8rem;
+    cursor: pointer;
+    &__name,
+    &__amount {
+        display: inline-block;
+        margin: 1rem;
+    }
+
+    &:hover {
+        background-color: $primary-dark;
+    }
+
+    &__x {
+        background-color: none;
+        border: none;
+        padding: 0.2rem;
+        color: $white;
+        font-size: 2.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-block;
+        transition: all .1s;
+    
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.done {
+
+    & > * {
+        text-decoration: line-through;
+        opacity: 0.4;
+    }
+    
+}

@@ -1,10 +1,11 @@
 @font-face {
     font-family: "IBM";
     src: url(../IBMPlexSans-Regular.ttf);
+    src: url(../IBMPlexSans-ExtraLight.ttf);
 }
 
 body {
     color: $white;
     font-family: 'IBM', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }

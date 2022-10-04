@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Bill( { bill, toggleBill, deleteBill } ) {
 
+  const [isActive, setActive] = useState("false");
+
   function handleToggle() {
     toggleBill(bill.id);
+    setActive(!isActive);
   }
 
   function handleDelete() {
@@ -11,13 +14,11 @@ export default function Bill( { bill, toggleBill, deleteBill } ) {
   }
 
   return (
-    <div className='bill'>
-        <label>
-            <input className="checkbox" type="checkbox" checked={bill.paid} onChange={handleToggle}/>
-            <div className='bill__name'>{bill.name}</div>
-            <div className='bill__amount'>${bill.amount}</div>
-            <button className="bill__x" onClick={handleDelete}>x</button>
-        </label>
+    <div className={`bill ${isActive ? "" : "done"}`}>
+          <input className="checkbox" type="checkbox" checked={bill.paid} onChange={handleToggle}/>
+          <div className='bill__name'>{bill.name}</div>
+          <div className='bill__amount'>${bill.amount}</div>
+          <div className="bill__x" onClick={handleDelete}>x</div>
     </div>
   )
 }

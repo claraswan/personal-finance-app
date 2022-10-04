@@ -168,8 +168,10 @@ function App() {
 
       <div className='box journalBox'>
         <h2 className='box__title'>Your Spending This Month</h2>
-        <Journal entries={entries}/>
-        <SpendingChart className="spendingChart"/>
+        <div className='box__content'>
+          <Journal entries={entries}/>
+          <SpendingChart className="spendingChart"/>
+        </div>
     
         <div className='search' ref={searchBars}>
           <input className='search__input' ref={entryNameRef} type='text' placeholder='Title'/>
