@@ -2,8 +2,13 @@
     background-color: $primary-dark;
     border: none;
     padding: 1rem 1.2rem;
-    border-radius: 0.8rem;
+    border-radius: 0.8rem 0.2rem;
     color: $white;
     font-family: 'IBM', sans-serif;
     cursor: pointer;
+    transition: all .4s;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 }

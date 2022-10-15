@@ -1,17 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
-import Journal, { amounts } from './Journal';
+import Journal from './Journal';
 
 console.log('journal amounts: ', Journal);
 
+// const data = [
+//   { name: 'Food', value: 0 },
+//   { name: 'Entertainment', value: amounts.entertainmentAmount },
+//   { name: 'Clothing', value: amounts.clothingAmount },
+//   { name: 'Healthcare', value: amounts.healthcareAmount },
+//   { name: 'Rent', value: amounts.rentAmount },
+//   { name: 'Pet Cost', value: amounts.petCostsAmount },
+//   { name: 'Other', value: amounts.otherAmount },
+// ];
+
 const data = [
-  { name: 'Food', value: 0 },
-  { name: 'Entertainment', value: amounts.entertainmentAmount },
-  { name: 'Clothing', value: amounts.clothingAmount },
-  { name: 'Healthcare', value: amounts.healthcareAmount },
-  { name: 'Rent', value: amounts.rentAmount },
-  { name: 'Pet Cost', value: amounts.petCostsAmount },
-  { name: 'Other', value: amounts.otherAmount },
+  { name: 'Food', value: 200 },
+  { name: 'Entertainment', value: 100 },
+  { name: 'Clothing', value: 50 },
+  { name: 'Healthcare', value: 120 },
+  { name: 'Rent', value: 600 },
+  { name: 'Pet Cost', value: 80 },
+  { name: 'Other', value: 60 },
 ];
 
 const RADIAN = Math.PI / 180;
@@ -31,12 +41,12 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
 export default function SpendingChart() {
 
-  useEffect(() => {
-    console.log('journal changed');
-  }, [Journal]);
+  // useEffect(() => {
+  //   console.log('journal changed');
+  // }, [Journal]);
 
   return (
-        <PieChart width={400} height={400}>
+        <PieChart width={500} height={500}>
           <Pie
             data={data}
             cx="50%"
