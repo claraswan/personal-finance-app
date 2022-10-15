@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import Journal from './components/Journal';
 import SpendingChart from './components/SpendingChart';
 import { v4 as uuidv4 } from 'uuid';
-import plus from './plus.svg';
+import plus from './assets/plus.svg';
 import './css/App.css';
 
 const LOCAL_STORAGE_KEY = 'financeApp.bills';
