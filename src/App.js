@@ -5,9 +5,11 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Journal from './components/Journal';
 import SpendingChart from './components/SpendingChart';
+import AssetsList from './components/AssetsList';
 import { v4 as uuidv4 } from 'uuid';
 import plus from './assets/plus.svg';
 import './css/App.css';
+import axios from "axios";
 
 const LOCAL_STORAGE_KEY = 'financeApp.bills';
 
@@ -16,6 +18,7 @@ function App() {
   const [bills, setBills] = useState([]); // in react you can never directly modify state. The state 'bills' can ONLY be modified using its setter function.
   const [goals, setGoals] = useState([]); 
   const [entries, setEntries] = useState([]); 
+  const [assets, setAssets] = useState([]); 
   const billNameRef = useRef();
   const billAmountRef = useRef();
   const goalNameRef = useRef();
@@ -24,6 +27,8 @@ function App() {
   const entryDescRef = useRef();
   const entryAmountRef = useRef();
   const addNew = useRef();
+  const assetSymbolRef = useRef();
+  const assetAmountRef = useRef();
 
   const searchBars = document.getElementsByClassName('search');
   for (const searchBar of searchBars) {
@@ -108,6 +113,42 @@ function App() {
     }
   }
 
+  function handleAddAsset(e) {
+    
+    e.preventDefault();
+    
+    const symbol = assetSymbolRef.current.value.toUpperCase();
+    const shareAmount = assetAmountRef.current.value.toUpperCase();
+
+    if (symbol === '' || shareAmount === '') return;
+
+    if (e.key === 'Enter') {
+
+      axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=977E45DL04JEWK4C`).then((res) => {
+  
+      // const metaData = res.data["Meta Data"];
+      let timeSeriesData = res.data["Time Series (Daily)"];
+      let mostRecentData = Object.entries(timeSeriesData)[0];
+      let price = mostRecentData[1]["4. close"];
+      let assetValue = (price * shareAmount).toFixed(2);
+  
+      console.log('mostRecentData', mostRecentData);
+      console.log('price', price);
+
+      setAssets(prevAssets => {
+        return [...prevAssets, { id: uuidv4(), symbol: symbol, amount: assetValue}]
+      })
+  
+      }).catch((err) => {
+          console.log(err);
+      });
+
+      assetSymbolRef.current.value = null;
+      assetAmountRef.current.value = null;
+    }
+
+  }
+
   function addNewBill() {
     for (const searchBar of searchBars) {
       if (searchBar.parent === addNew.parent) {
@@ -124,11 +165,26 @@ function App() {
     }
   }
 
+  function addNewAsset() {
+    for (const searchBar of searchBars) {
+      if (searchBar.parent === addNew.parent) {
+        searchBar.style.opacity = 1;
+      }
+    }
+  }
+
   function deleteBill(id) {
     const newBills = [...bills]; 
     const bill = newBills.find(bill => bill.id === id);
     newBills.splice(newBills.indexOf(bill), 1);
     setBills(newBills);
+  }
+
+  function deleteAsset(id) {
+    const newAssets = [...assets]; 
+    const asset = newAssets.find(asset => asset.id === id);
+    newAssets.splice(newAssets.indexOf(asset), 1);
+    setAssets(newAssets);
   }
 
   function clearPaidBills(e) {
@@ -203,8 +259,14 @@ function App() {
 
       <div className='box assetsBox'>
         <h2 className='box__title'>Assets</h2>
-        
-        
+        <div className='assetsList'>
+          <AssetsList assets={assets} deleteAsset={deleteAsset}/>
+          <div className='asset addNew' onClick={addNewAsset}><img src={plus} alt='plus sign icon'></img></div>
+        </div>
+        <div className='search' ref={searchBars}>
+          <input className='search__input' ref={assetSymbolRef} type='text' placeholder='Symbol' />
+          <input className='amount search__input' ref={assetAmountRef} type='text' placeholder='# of shares' onKeyUp={(e) => handleAddAsset(e)} />
+        </div>
 
       </div>
 

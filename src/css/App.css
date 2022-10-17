@@ -21,6 +21,39 @@ body {
   font-family: 'IBM', sans-serif;
   font-size: 1.6rem; }
 
+.asset {
+  border: 0.2rem solid #414775;
+  border-radius: 0.8rem 0.2rem;
+  padding: 1rem;
+  margin: 1rem 1rem 1rem 0;
+  width: 10%;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  position: relative; }
+  .asset:hover {
+    background-color: #414775; }
+  .asset__name {
+    font-size: 1.8rem;
+    font-weight: 700; }
+  .asset__x {
+    position: absolute;
+    top: .1rem;
+    right: 1rem;
+    background-color: none;
+    border: none;
+    padding: 0.2rem;
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .1s; }
+    .asset__x:hover {
+      transform: scale(1.1); }
+
 .bill {
   height: 4.4rem;
   border-radius: 0.8rem 0.2rem;
@@ -155,7 +188,12 @@ body {
   justify-content: center; }
 
 .amount {
-  width: 5%; }
+  width: 7%; }
 
-.recharts-wrapper {
-  margin-right: 0; }
+.assetsBox {
+  height: 50rem; }
+
+.assetsList {
+  display: flex;
+  justify-content: center;
+  align-items: center; }

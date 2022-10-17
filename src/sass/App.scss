@@ -4,6 +4,7 @@
 @import "base/base";
 @import "base/typography";
 
+@import "components/asset";
 @import "components/bill";
 @import "components/box";
 @import "components/button";
@@ -92,9 +93,13 @@
 }
 
 .amount {
-    width: 5%;
+    width: 7%;
 }
 
-.recharts-wrapper {
-    margin-right: 0;
+.assetsBox {
+    height: 50rem;
+}
+
+.assetsList {
+    @include flex-center;
 }
