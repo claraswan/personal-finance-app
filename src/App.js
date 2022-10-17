@@ -149,25 +149,33 @@ function App() {
 
   }
 
-  function addNewBill() {
+  function addNewBill(e) {
     for (const searchBar of searchBars) {
-      if (searchBar.parent === addNew.parent) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
         searchBar.style.opacity = 1;
       }
     }
   }
 
-  function addNewGoal() {
+  function addNewEntry(e) {
     for (const searchBar of searchBars) {
-      if (searchBar.parent === addNew.parent) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
         searchBar.style.opacity = 1;
       }
     }
   }
 
-  function addNewAsset() {
+  function addNewGoal(e) {
     for (const searchBar of searchBars) {
-      if (searchBar.parent === addNew.parent) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
+        searchBar.style.opacity = 1;
+      }
+    }
+  }
+
+  function addNewAsset(e) {
+    for (const searchBar of searchBars) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
         searchBar.style.opacity = 1;
       }
     }
@@ -209,11 +217,12 @@ function App() {
             {billAmount}</span> left to pay this month
           </div>
         </div>
-      
-        <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
-        <div className='bill addNew' ref={addNew} onClick={addNewBill}><img src={plus} alt='plus sign icon'></img></div>
+        <div className='billsList'>
+          <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
+          <div className='bill addNew' ref={addNew} onClick={addNewBill}><img src={plus} alt='plus sign icon'></img></div>
+        </div>
         
-        <div className='search' ref={searchBars}>
+        <div className='search' ref={searchBars} >
           <input className='search__input' ref={billNameRef} type='text' placeholder='Name of bill'/>
           <input className='amount search__input' ref={billAmountRef} type='text' placeholder='Amount' onKeyUp={(e) => handleAddBill(e)} />
         </div>
@@ -227,6 +236,7 @@ function App() {
         <div className='box__content'>
           <Journal entries={entries}/>
           <SpendingChart className="spendingChart" entries={entries} />
+          <div className='entry addNew' onClick={addNewEntry}><img src={plus} alt='plus sign icon'></img></div>
         </div>
     
         <div className='search' ref={searchBars}>

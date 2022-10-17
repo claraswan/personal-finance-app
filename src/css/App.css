@@ -96,7 +96,8 @@ body {
   .box__content {
     display: flex;
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    position: relative; }
 
 .btn {
   background-color: #1D2041;
@@ -136,6 +137,10 @@ body {
       font-size: 2rem; }
     .journal__entry--description {
       font-weight: 700; }
+
+.entry {
+  position: absolute;
+  bottom: 1rem; }
 
 .dark-pink {
   color: #9D3171; }

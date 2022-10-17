@@ -11,5 +11,6 @@
 
     &__content {
         @include flex-center;
+        position: relative;
     }
 }
