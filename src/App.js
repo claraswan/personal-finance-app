@@ -13,7 +13,7 @@ import axios from "axios";
 
 const LOCAL_STORAGE_KEY = 'financeApp.bills';
 
-function App() {
+export default function App() {
 
   const [bills, setBills] = useState([]); // in react you can never directly modify state. The state 'bills' can ONLY be modified using its setter function.
   const [goals, setGoals] = useState([]); 
@@ -201,6 +201,7 @@ function App() {
   }
 
   let billAmount = 0;
+  let assetAmount = 0;
 
   return (
     <>
@@ -269,6 +270,12 @@ function App() {
 
       <div className='box assetsBox'>
         <h2 className='box__title'>Assets</h2>
+        <div className='stats'>
+          <div>$<span className='stats__num'>
+            {assets.forEach(asset => assetAmount += Number(asset.amount))} 
+            {assetAmount}</span> total assets
+          </div>
+        </div>
         <div className='assetsList'>
           <AssetsList assets={assets} deleteAsset={deleteAsset}/>
           <div className='asset addNew' onClick={addNewAsset}><img src={plus} alt='plus sign icon'></img></div>
@@ -286,5 +293,3 @@ function App() {
   );
 
 }
-
-export default App;
