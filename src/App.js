@@ -271,9 +271,9 @@ export default function App() {
       <div className='box assetsBox'>
         <h2 className='box__title'>Assets</h2>
         <div className='stats'>
-          <div>$<span className='stats__num'>
+          <div>$<span className='stats__num--assets'>
             {assets.forEach(asset => assetAmount += Number(asset.amount))} 
-            {assetAmount}</span> total assets
+            {assetAmount}</span> in total assets
           </div>
         </div>
         <div className='assetsList'>

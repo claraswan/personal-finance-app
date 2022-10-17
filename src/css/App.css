@@ -43,7 +43,7 @@ body {
     left: 1rem;
     font-size: 1.1rem; }
   .asset__symbol {
-    color: #9D3171;
+    color: #FF5497;
     font-size: 2rem;
     font-weight: 800; }
   .asset__x {
@@ -201,6 +201,8 @@ body {
     font-weight: 700;
     font-size: 1.6rem;
     color: #7e90ec; }
+    .stats__num--assets {
+      color: #FF5497; }
 
 .search__input {
   padding: 0.6rem;
