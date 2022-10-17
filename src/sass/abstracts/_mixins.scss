@@ -3,3 +3,17 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin x {
+    color: $white;
+    font-size: 2.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+    transition: all .1s;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+}

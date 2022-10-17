@@ -126,17 +126,17 @@ function App() {
 
       axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=977E45DL04JEWK4C`).then((res) => {
   
-      // const metaData = res.data["Meta Data"];
+      const metaData = res.data["Meta Data"];
       let timeSeriesData = res.data["Time Series (Daily)"];
       let mostRecentData = Object.entries(timeSeriesData)[0];
       let price = mostRecentData[1]["4. close"];
       let assetValue = (price * shareAmount).toFixed(2);
-  
-      console.log('mostRecentData', mostRecentData);
-      console.log('price', price);
+      let date = metaData["3. Last Refreshed"];
+
+      console.log(date);
 
       setAssets(prevAssets => {
-        return [...prevAssets, { id: uuidv4(), symbol: symbol, amount: assetValue}]
+        return [...prevAssets, { id: uuidv4(), symbol: symbol, amount: assetValue, date: date}]
       })
   
       }).catch((err) => {
@@ -226,7 +226,7 @@ function App() {
         <h2 className='box__title'>Your Spending This Month</h2>
         <div className='box__content'>
           <Journal entries={entries}/>
-          <SpendingChart className="spendingChart"/>
+          <SpendingChart className="spendingChart" entries={entries} />
         </div>
     
         <div className='search' ref={searchBars}>
