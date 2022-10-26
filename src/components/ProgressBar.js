@@ -3,10 +3,9 @@ import React from 'react';
 export default function ProgressBar() {
 
   return (
-    <div className="progress-bar">  
-        <div className="progress-bar__bar" style={{'--width': '25'}}>
-            
-        </div>
+    <div>  
+      <progress className="progress-bar" max="100" value="25"></progress>
     </div>
+    
   )
 }
