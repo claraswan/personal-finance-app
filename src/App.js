@@ -5,17 +5,20 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Journal from './components/Journal';
 import SpendingChart from './components/SpendingChart';
+import AssetsList from './components/AssetsList';
 import { v4 as uuidv4 } from 'uuid';
 import plus from './assets/plus.svg';
 import './css/App.css';
+import axios from "axios";
 
 const LOCAL_STORAGE_KEY = 'financeApp.bills';
 
-function App() {
+export default function App() {
 
   const [bills, setBills] = useState([]); // in react you can never directly modify state. The state 'bills' can ONLY be modified using its setter function.
   const [goals, setGoals] = useState([]); 
   const [entries, setEntries] = useState([]); 
+  const [assets, setAssets] = useState([]); 
   const billNameRef = useRef();
   const billAmountRef = useRef();
   const goalNameRef = useRef();
@@ -24,6 +27,8 @@ function App() {
   const entryDescRef = useRef();
   const entryAmountRef = useRef();
   const addNew = useRef();
+  const assetSymbolRef = useRef();
+  const assetAmountRef = useRef();
 
   const searchBars = document.getElementsByClassName('search');
   for (const searchBar of searchBars) {
@@ -108,17 +113,69 @@ function App() {
     }
   }
 
-  function addNewBill() {
+  function handleAddAsset(e) {
+    
+    e.preventDefault();
+    
+    const symbol = assetSymbolRef.current.value.toUpperCase();
+    const shareAmount = assetAmountRef.current.value.toUpperCase();
+
+    if (symbol === '' || shareAmount === '') return;
+
+    if (e.key === 'Enter') {
+
+      axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=977E45DL04JEWK4C`).then((res) => {
+  
+      const metaData = res.data["Meta Data"];
+      let timeSeriesData = res.data["Time Series (Daily)"];
+      let mostRecentData = Object.entries(timeSeriesData)[0];
+      let price = mostRecentData[1]["4. close"];
+      let assetValue = (price * shareAmount).toFixed(2);
+      let date = metaData["3. Last Refreshed"];
+
+      console.log(date);
+
+      setAssets(prevAssets => {
+        return [...prevAssets, { id: uuidv4(), symbol: symbol, amount: assetValue, date: date}]
+      })
+  
+      }).catch((err) => {
+          console.log(err);
+      });
+
+      assetSymbolRef.current.value = null;
+      assetAmountRef.current.value = null;
+    }
+
+  }
+
+  function addNewBill(e) {
     for (const searchBar of searchBars) {
-      if (searchBar.parent === addNew.parent) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
         searchBar.style.opacity = 1;
       }
     }
   }
 
-  function addNewGoal() {
+  function addNewEntry(e) {
     for (const searchBar of searchBars) {
-      if (searchBar.parent === addNew.parent) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
+        searchBar.style.opacity = 1;
+      }
+    }
+  }
+
+  function addNewGoal(e) {
+    for (const searchBar of searchBars) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
+        searchBar.style.opacity = 1;
+      }
+    }
+  }
+
+  function addNewAsset(e) {
+    for (const searchBar of searchBars) {
+      if (searchBar.parentElement === e.currentTarget.parentElement.parentElement) {
         searchBar.style.opacity = 1;
       }
     }
@@ -131,12 +188,20 @@ function App() {
     setBills(newBills);
   }
 
+  function deleteAsset(id) {
+    const newAssets = [...assets]; 
+    const asset = newAssets.find(asset => asset.id === id);
+    newAssets.splice(newAssets.indexOf(asset), 1);
+    setAssets(newAssets);
+  }
+
   function clearPaidBills(e) {
     const newBills = bills.filter(bill => !bill.paid);
     setBills(newBills);
   }
 
   let billAmount = 0;
+  let assetAmount = 0;
 
   return (
     <>
@@ -153,11 +218,12 @@ function App() {
             {billAmount}</span> left to pay this month
           </div>
         </div>
-      
-        <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
-        <div className='bill addNew' ref={addNew} onClick={addNewBill}><img src={plus} alt='plus sign icon'></img></div>
+        <div className='billsList'>
+          <BillsList bills={bills} toggleBill={toggleBill} deleteBill={deleteBill}/>
+          <div className='bill addNew' ref={addNew} onClick={addNewBill}><img src={plus} alt='plus sign icon'></img></div>
+        </div>
         
-        <div className='search' ref={searchBars}>
+        <div className='search' ref={searchBars} >
           <input className='search__input' ref={billNameRef} type='text' placeholder='Name of bill'/>
           <input className='amount search__input' ref={billAmountRef} type='text' placeholder='Amount' onKeyUp={(e) => handleAddBill(e)} />
         </div>
@@ -170,7 +236,8 @@ function App() {
         <h2 className='box__title'>Your Spending This Month</h2>
         <div className='box__content'>
           <Journal entries={entries}/>
-          <SpendingChart className="spendingChart"/>
+          <SpendingChart className="spendingChart" entries={entries} />
+          <div className='entry addNew' onClick={addNewEntry}><img src={plus} alt='plus sign icon'></img></div>
         </div>
     
         <div className='search' ref={searchBars}>
@@ -203,8 +270,20 @@ function App() {
 
       <div className='box assetsBox'>
         <h2 className='box__title'>Assets</h2>
-        
-        
+        <div className='stats'>
+          <div>$<span className='stats__num--assets'>
+            {assets.forEach(asset => assetAmount += Number(asset.amount))} 
+            {assetAmount}</span> in total assets
+          </div>
+        </div>
+        <div className='assetsList'>
+          <AssetsList assets={assets} deleteAsset={deleteAsset}/>
+          <div className='asset addNew' onClick={addNewAsset}><img src={plus} alt='plus sign icon'></img></div>
+        </div>
+        <div className='search' ref={searchBars}>
+          <input className='search__input' ref={assetSymbolRef} type='text' placeholder='Symbol' />
+          <input className='amount search__input' ref={assetAmountRef} type='text' placeholder='# of shares' onKeyUp={(e) => handleAddAsset(e)} />
+        </div>
 
       </div>
 
@@ -214,5 +293,3 @@ function App() {
   );
 
 }
-
-export default App;

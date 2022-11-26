@@ -1,12 +1,16 @@
+@import "abstracts/functions";
 @import "abstracts/mixins";
 @import "abstracts/variables";
 
 @import "base/base";
 @import "base/typography";
 
+@import "components/asset";
 @import "components/bill";
 @import "components/box";
 @import "components/button";
+@import "components/goal";
+@import "components/journal";
 @import "components/progress-bar";
 @import "components/spending-chart";
 
@@ -22,6 +26,10 @@
         font-weight: 700;
         font-size: 1.6rem;
         color: $blue-light;
+
+        &--assets {
+            color: $pink;
+        }
     }
 }
 
@@ -36,65 +44,19 @@
     }
 }
 
-.journal {
-
-    margin: 2rem 0;
-    width: 50rem;
-    background-color: $primary-light-2;
-    padding: 2rem;
-    border-radius: 0.8rem 0.2rem;
-
-    &__entry {
-
-        border-bottom: solid 1px white;
-
-        &--headers,
-        &--name,
-        &--description,
-        &--amount {
-            width: 10rem;
-            padding: 0.4rem 2rem 0.4rem 0;
-        }
-
-        &--headers {
-            text-align: left;
-            font-size: 2rem;
-        }
-        
-    }
-    
-}
-
 .goalsList {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.goal {
-    border: 0.2rem solid $primary-light-2;
-    border-radius: 0.8rem 0.2rem;
-    padding: 1rem;
-    margin: 1rem 1rem 1rem 0;
-    width: 20%;
-    height: 12rem;
-
-    &:hover {
-        background-color: $primary-light-2;
-    }
+    @include flex-center;
 }
 
 .addNew{
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-center;
 }
 
 .amount {
-    width: 5%;
+    width: 7%;
 }
 
-.recharts-wrapper {
-    margin-right: 0;
+.assetsList {
+    @include flex-center;
 }

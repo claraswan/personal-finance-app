@@ -1,0 +1,40 @@
+.asset {
+
+    border: 0.2rem solid $primary-light-2;
+    border-radius: 0.8rem 0.2rem;
+    padding: 1rem;
+    margin: 1rem 1rem 1rem 0;
+    width: 16%;
+    height: 8rem;
+    position: relative;
+
+    &:hover {
+        background-color: $primary-light-2;
+    }
+
+    &__mainInfo {
+        @include flex-center;
+        gap: 1rem;
+        margin-top: 1.6rem;
+    }
+
+    &__date {
+        position: absolute;
+        bottom: .1rem;
+        left: 1rem;
+        font-size: 1.1rem;
+    }
+
+    &__symbol {
+        color: $pink;
+        font-size: 2rem;
+        font-weight: 800;
+    }
+
+    &__x {
+        @include x;
+        position: absolute;
+        top: .1rem;
+        right: 1rem;
+    }
+}

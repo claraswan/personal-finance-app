@@ -1,0 +1,62 @@
+.journal {
+
+    margin: 2rem 0;
+    width: 50rem;
+    background-color: $primary-light-2;
+    padding: 2rem;
+    border-radius: 0.8rem 0.2rem;
+
+    &__entry {
+
+        border-bottom: solid 1px white;
+
+        &--headers,
+        &--name,
+        &--description,
+        &--amount {
+            width: 10rem;
+            padding: 0.4rem 2rem 0.4rem 0;
+        }
+
+        &--headers {
+            text-align: left;
+            font-size: 2rem;
+        }
+
+        &--description {
+            font-weight: 700;
+        }
+
+    }
+    
+}
+
+.entry {
+    position: absolute;
+    bottom: 1rem;
+}
+
+.dark-pink {
+    color: $pink-dark;
+}
+.dark-blue {
+    color: $primary-dark;
+}
+.dark-orange {
+    color: $orange-dark;
+}
+.orange {
+    color: $orange;
+}
+.pink {
+    color: $pink;
+}
+.blue {
+    color: $blue;
+}
+.green {
+    color: $green;
+}
+.blue-light {
+    color: $blue-light;
+}
